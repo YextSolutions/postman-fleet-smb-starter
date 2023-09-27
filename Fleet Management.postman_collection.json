@@ -1,0 +1,876 @@
+{
+	"info": {
+		"_postman_id": "61536d2b-928e-4eba-aeda-4b7443ff062d",
+		"name": "Fleet Management",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "24548710",
+		"_collection_link": "https://interstellar-meteor-950347.postman.co/workspace/Yext-Pages~d7ceb03c-3e44-4891-804c-17dc8db4f1c2/collection/22270123-61536d2b-928e-4eba-aeda-4b7443ff062d?action=share&source=collection_link&creator=24548710"
+	},
+	"item": [
+		{
+			"name": "Content",
+			"item": [
+				{
+					"name": "Create Entity",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Lucs House\",\n    \"address\": {\n        \"line1\": \"61 9th Ave\",\n        \"city\": \"New York\",\n        \"region\": \"NY\",\n        \"postalCode\": \"10003\",\n        \"countryCode\": \"US\"\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{environment}}.yext.com/v2/accounts/{{account_id}}/entities?v={{v}}&entityType=location",
+							"protocol": "https",
+							"host": [
+								"{{environment}}",
+								"yext",
+								"com"
+							],
+							"path": [
+								"v2",
+								"accounts",
+								"{{account_id}}",
+								"entities"
+							],
+							"query": [
+								{
+									"key": "v",
+									"value": "{{v}}"
+								},
+								{
+									"key": "entityType",
+									"value": "location"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "[https://hitchhikers.yext.com/docs/managementapis/knowledgegraph/]()"
+		},
+		{
+			"name": "Agreements API",
+			"item": [
+				{
+					"name": "Available Services",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://{{environment}}.yext.com/v2/accounts/{{account_id}}/availableservices?v={{v}}",
+							"protocol": "https",
+							"host": [
+								"{{environment}}",
+								"yext",
+								"com"
+							],
+							"path": [
+								"v2",
+								"accounts",
+								"{{account_id}}",
+								"availableservices"
+							],
+							"query": [
+								{
+									"key": "v",
+									"value": "{{v}}"
+								}
+							]
+						},
+						"description": "Get all available services on a parent account. These services can be made availalbe to sub-accounts by applying the respective SKU to each sub-account."
+					},
+					"response": []
+				},
+				{
+					"name": "Create Sub Account",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"newSubAccountId\": \"{{sub_account_id}}\",\n    \"newSubAccountName\": \"{{sub_account_name}}\",\n    \"countryCode\": \"{{sub_account_country_code}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{environment}}.yext.com/v2/accounts/{{account_id}}/createsubaccount?v={{v}}",
+							"protocol": "https",
+							"host": [
+								"{{environment}}",
+								"yext",
+								"com"
+							],
+							"path": [
+								"v2",
+								"accounts",
+								"{{account_id}}",
+								"createsubaccount"
+							],
+							"query": [
+								{
+									"key": "v",
+									"value": "{{v}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List Sub Accounts",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://{{environment}}.yext.com/v2/accounts?v={{v}}",
+							"protocol": "https",
+							"host": [
+								"{{environment}}",
+								"yext",
+								"com"
+							],
+							"path": [
+								"v2",
+								"accounts"
+							],
+							"query": [
+								{
+									"key": "v",
+									"value": "{{v}}"
+								},
+								{
+									"key": "offset",
+									"value": "100",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create AddRequest (New Location)",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"newLocationId\": \"{{location_entity_id}}\",\n  \"newLocationAccountId\": \"{{sub_account_id}}\",\n  \"newLocationAccountName\": \"{{sub_account_name}}\",\n  \"newAccountParentAccountId\": \"{{account_id}}\",\n  \"newEntityType\": \"location\",\n  \"newEntityData\": {\n    \"meta\": {\n        \"countryCode\": \"US\"\n    },\n    \"name\": \"Test Location\",\n    \"address\": {\n        \"city\": \"New York\",\n        \"countryCode\": \"US\",\n        \"line1\": \"61 9th Ave\",\n        \"line2\": \"Floor 6\",\n        \"postalCode\": \"10011\",\n        \"region\": \"NY\"\n    },\n    \"slug\": \"index.html\",\n    \"hours\": {\n      \"friday\": {\n        \"openIntervals\": [\n          {\n            \"end\": \"17:00\",\n            \"start\": \"09:00\"\n          }\n        ]\n      },\n      \"monday\": {\n        \"openIntervals\": [\n          {\n            \"end\": \"17:00\",\n            \"start\": \"09:00\"\n          }\n        ]\n      },\n      \"saturday\": {\n        \"isClosed\": true\n      },\n      \"sunday\": {\n        \"isClosed\": true\n      },\n      \"thursday\": {\n        \"openIntervals\": [\n          {\n            \"end\": \"17:00\",\n            \"start\": \"09:00\"\n          }\n        ]\n      },\n      \"tuesday\": {\n        \"openIntervals\": [\n          {\n            \"end\": \"17:00\",\n            \"start\": \"09:00\"\n          }\n        ]\n      },\n      \"wednesday\": {\n        \"openIntervals\": [\n          {\n            \"end\": \"17:00\",\n            \"start\": \"09:00\"\n          }\n        ]\n      }\n    },\n    \"description\": \"Lorem ipsum new entity.\",\n    \"paymentOptions\": [\n      \"AMERICANEXPRESS\",\n      \"DISCOVER\",\n      \"MASTERCARD\",\n      \"VISA\"\n    ],\n    \"logo\": {\n      \"description\": \"Lorem ipsum logo.\",\n      \"details\": \"Lorem ipsum logo.\",\n      \"image\": {\n        \"alternateText\": \"Lorem ipsum logo.\",\n        \"height\": 5000,\n        \"url\": \"http://a.mktgcdn.com/p/ee2MhPmqiJERt02WX3tGkkH-2CB9a8yX7gR8pWQKiUI/5000x5000.png\",\n        \"width\": 5000\n      }\n    },\n    \"photoGallery\": [\n      {\n        \"description\": \"Lorem ipsum photo.\",\n        \"details\": \"Lorem ipsum photo.\",\n        \"image\": {\n          \"alternateText\": \"Lorem ipsum photo.\",\n          \"height\": 878,\n          \"url\": \"http://a.mktgcdn.com/p/ldN8e6Xb-snsRXqH_z1S_6ru4sbu16N2s9V6uod6wV0/1560x878.jpg\",\n          \"width\": 1560\n        }\n      },\n      {\n        \"description\": \"Lorem ipsum photo.\",\n        \"details\": \"Lorem ipsum photo.\",\n        \"image\": {\n          \"alternateText\": \"Lorem ipsum photo.\",\n          \"height\": 901,\n          \"url\": \"http://a.mktgcdn.com/p/u0yxxY6XdtLH4bu1u0AJNm7cj5VstDJ3l9GmCwWJgSo/1600x901.jpg\",\n          \"width\": 1600\n        }\n      }\n    ],\n    \"instagramHandle\": \"yext\",\n    \"twitterHandle\": \"yext\"\n  },\n  \"skus\": [\n    \"GLOBAL-00000293\"\n  ],\n  \"agreementId\": {{agreement_id}},\n  \"forceReview\": false\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{environment}}.yext.com/v2/accounts/me/newlocationaddrequests?v={{v}}",
+							"protocol": "https",
+							"host": [
+								"{{environment}}",
+								"yext",
+								"com"
+							],
+							"path": [
+								"v2",
+								"accounts",
+								"me",
+								"newlocationaddrequests"
+							],
+							"query": [
+								{
+									"key": "v",
+									"value": "{{v}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create AddRequest (Existing Location)",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"existingLocationId\": \"{{location_entity_id}}\",\n  \"existingLocationAccountId\": \"{{sub_account_id}}\",\n  \"skus\": [\n    \"GLOBAL-00000293\"\n  ],\n  \"agreementId\": {{agreement_id}},\n  \"forceReview\": false\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{environment}}.yext.com/v2/accounts/me/existinglocationaddrequests?v={{v}}",
+							"protocol": "https",
+							"host": [
+								"{{environment}}",
+								"yext",
+								"com"
+							],
+							"path": [
+								"v2",
+								"accounts",
+								"me",
+								"existinglocationaddrequests"
+							],
+							"query": [
+								{
+									"key": "v",
+									"value": "{{v}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get AddRequest",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"newLocationId\": \"{{location_entity_id}}\",\n  \"newLocationAccountId\": \"{{sub_account_id}}\",\n  \"newLocationAccountName\": \"{{sub_account_name}}\",\n  \"newAccountParentAccountId\": \"{{account_id}}\",\n  \"newEntityType\": \"location\",\n  \"newEntityData\": {\n    \"meta\": {\n        \"countryCode\": \"PT\",\n        \"language\": \"\"\n    },\n    \"name\": \"Test Location\",\n    \"address\": {\n        \"city\": \"Lisbon\",\n        \"countryCode\": \"PT\",\n        \"line1\": \"Av. da Liberdade 2\",\n        \"postalCode\": \"1250-144\"\n    },\n    \"slug\": \"index.html\",\n    \"hours\": {\n      \"friday\": {\n        \"openIntervals\": [\n          {\n            \"end\": \"17:00\",\n            \"start\": \"09:00\"\n          }\n        ]\n      },\n      \"monday\": {\n        \"openIntervals\": [\n          {\n            \"end\": \"17:00\",\n            \"start\": \"09:00\"\n          }\n        ]\n      },\n      \"saturday\": {\n        \"isClosed\": true\n      },\n      \"sunday\": {\n        \"isClosed\": true\n      },\n      \"thursday\": {\n        \"openIntervals\": [\n          {\n            \"end\": \"17:00\",\n            \"start\": \"09:00\"\n          }\n        ]\n      },\n      \"tuesday\": {\n        \"openIntervals\": [\n          {\n            \"end\": \"17:00\",\n            \"start\": \"09:00\"\n          }\n        ]\n      },\n      \"wednesday\": {\n        \"openIntervals\": [\n          {\n            \"end\": \"17:00\",\n            \"start\": \"09:00\"\n          }\n        ]\n      }\n    },\n    \"description\": \"Lorem ipsum Portuguese entity.\",\n    \"paymentOptions\": [\n      \"AMERICANEXPRESS\",\n      \"DISCOVER\",\n      \"MASTERCARD\",\n      \"VISA\"\n    ],\n    \"logo\": {\n      \"description\": \"Lorem ipsum logo.\",\n      \"details\": \"Lorem ipsum logo.\",\n      \"image\": {\n        \"alternateText\": \"Lorem ipsum logo.\",\n        \"height\": 5000,\n        \"url\": \"http://a.mktgcdn.com/p/ee2MhPmqiJERt02WX3tGkkH-2CB9a8yX7gR8pWQKiUI/5000x5000.png\",\n        \"width\": 5000\n      }\n    },\n    \"photoGallery\": [\n      {\n        \"description\": \"Lorem ipsum photo.\",\n        \"details\": \"Lorem ipsum photo.\",\n        \"image\": {\n          \"alternateText\": \"Lorem ipsum photo.\",\n          \"height\": 878,\n          \"url\": \"http://a.mktgcdn.com/p/ldN8e6Xb-snsRXqH_z1S_6ru4sbu16N2s9V6uod6wV0/1560x878.jpg\",\n          \"width\": 1560\n        }\n      },\n      {\n        \"description\": \"Lorem ipsum photo.\",\n        \"details\": \"Lorem ipsum photo.\",\n        \"image\": {\n          \"alternateText\": \"Lorem ipsum photo.\",\n          \"height\": 901,\n          \"url\": \"http://a.mktgcdn.com/p/u0yxxY6XdtLH4bu1u0AJNm7cj5VstDJ3l9GmCwWJgSo/1600x901.jpg\",\n          \"width\": 1600\n        }\n      }\n    ],\n    \"instagramHandle\": \"yext\",\n    \"twitterHandle\": \"yext\"\n  },\n  \"skus\": [\n    \"GLOBAL-00000293\"\n  ],\n  \"agreementId\": {{agreement_id}},\n  \"forceReview\": false\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{environment}}.yext.com/v2/accounts/me/addrequests/{{add_request_id}}?v={{v}}",
+							"protocol": "https",
+							"host": [
+								"{{environment}}",
+								"yext",
+								"com"
+							],
+							"path": [
+								"v2",
+								"accounts",
+								"me",
+								"addrequests",
+								"{{add_request_id}}"
+							],
+							"query": [
+								{
+									"key": "v",
+									"value": "{{v}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Test Content Data",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var id = pm.response.json().response.id;",
+									"pm.collectionVariables.set(\"resources_apply_id\", id);",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"source\": {\n    \"type\": \"GitHub\",\n    \"url\": \"https://github.com/YextSolutions/reseller-content-config\",\n    \"variables\": {\n    }\n  },\n  \"targetAccountId\": \"{{sub_account_id}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{environment}}.yext.com/v2/accounts/me/resourcesapplyrequests?v={{v}}",
+							"protocol": "https",
+							"host": [
+								"{{environment}}",
+								"yext",
+								"com"
+							],
+							"path": [
+								"v2",
+								"accounts",
+								"me",
+								"resourcesapplyrequests"
+							],
+							"query": [
+								{
+									"key": "v",
+									"value": "{{v}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Repo and Site",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var id = pm.response.json().response.id;",
+									"pm.collectionVariables.set(\"resources_apply_id\", id);",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"source\": {\n    \"type\": \"GitHub\",\n    \"url\": \"https://github.com/lymarrie/repo-site\",\n    \"variables\": {\n      \"repo_url\": \"{{repo_url}}\",\n      \"branch\": \"{{branch}}\",\n      \"repo_id\": \"{{repo_id}}\",\n      \"site_id\": \"{{site_id}}\",\n      \"site_name\": \"{{site_name}}\",\n      \"location_entity_id\": \"{{location_entity_id}}\",\n      \"location_locale_code\": \"{{location_locale_code}}\"\n    }\n  },\n  \"targetAccountId\": \"{{sub_account_id}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{environment}}.yext.com/v2/accounts/me/resourcesapplyrequests?v={{v}}",
+							"protocol": "https",
+							"host": [
+								"{{environment}}",
+								"yext",
+								"com"
+							],
+							"path": [
+								"v2",
+								"accounts",
+								"me",
+								"resourcesapplyrequests"
+							],
+							"query": [
+								{
+									"key": "v",
+									"value": "{{v}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Content, Repo, and Site",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var id = pm.response.json().response.id;",
+									"pm.collectionVariables.set(\"resources_apply_id\", id);",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"source\": {\n    \"type\": \"GitHub\",\n    \"url\": \"https://github.com/lymarrie/content-repo-site\",\n    \"variables\": {\n      \"repo_url\": \"{{repo_url}}\",\n      \"branch\": \"{{branch}}\",\n      \"repo_id\": \"{{repo_id}}\",\n      \"site_id\": \"{{site_id}}\",\n      \"site_name\": \"{{site_name}}\",\n      \"location_name\": \"{{location_name}}\",\n      \"location_address_line1\": \"{{location_address_line1}}\",\n      \"location_address_region\": \"{{location_address_region}}\",\n      \"location_address_postal_code\": \"{{location_address_postal_code}}\",\n      \"location_country_code\": \"{{location_country_code}}\",\n      \"location_entity_id\": \"{{location_entity_id}}\",\n      \"location_locale_code\": \"{{location_locale_code}}\",\n      \"logo\": \"{{logo}}\"\n    }\n  },\n  \"targetAccountId\": \"{{sub_account_id}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{environment}}.yext.com/v2/accounts/me/resourcesapplyrequests?v={{v}}",
+							"protocol": "https",
+							"host": [
+								"{{environment}}",
+								"yext",
+								"com"
+							],
+							"path": [
+								"v2",
+								"accounts",
+								"me",
+								"resourcesapplyrequests"
+							],
+							"query": [
+								{
+									"key": "v",
+									"value": "{{v}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Resources Apply Status",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://api.yext.com/v2/accounts/me/resourcesapplyrequests/{{resources_apply_request_id}}?v={{v}}",
+							"protocol": "https",
+							"host": [
+								"api",
+								"yext",
+								"com"
+							],
+							"path": [
+								"v2",
+								"accounts",
+								"me",
+								"resourcesapplyrequests",
+								"{{resources_apply_request_id}}"
+							],
+							"query": [
+								{
+									"key": "v",
+									"value": "{{v}}"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "[https://hitchhikers.yext.com/docs/managementapis/agreements/]()"
+		},
+		{
+			"name": "Configuration API",
+			"item": [
+				{
+					"name": "Create Repo",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "",
+								"value": "",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"$id\": \"{{repo_id}}\",\n    \"$schema\": \"https://schema.yext.com/config/pages/repository/v1\",\n    \"repoUrl\": \"{{repo_url}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{environment}}.yext.com/v2/accounts/{{sub_account_id}}/config/resources/pages/repository?v=20230101",
+							"protocol": "https",
+							"host": [
+								"{{environment}}",
+								"yext",
+								"com"
+							],
+							"path": [
+								"v2",
+								"accounts",
+								"{{sub_account_id}}",
+								"config",
+								"resources",
+								"pages",
+								"repository"
+							],
+							"query": [
+								{
+									"key": "v",
+									"value": "20230101"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Site",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "",
+								"value": "",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"$id\": \"{{site_id}}\",\n  \"$schema\": \"https://schema.yext.com/config/pages/yextsite-config/v1\",\n  \"siteName\": \"{{site_name}}\",\n  \"repoConfig\": \"{{repo_id}}\",\n  \"siteSettings\": {\n    \"autoDeploy\": true,\n    \"autoStage\": true,\n    \"autoPublish\": false,\n    \"pullRequestsEnabled\": false,\n    \"stagingCredentials\": {\n      \"password\": \"\",\n      \"username\": \"\"\n    }\n  },\n  \"branches\": [\n    {\n      \"name\": \"{{branch}}\",\n      \"envVars\": [\n            {\n                \"key\": \"YEXT_PUBLIC_LOCATION_ENTITY_ID\",\n                \"value\": \"{{location_entity_id}}\"\n            },\n            {\n                \"key\": \"YEXT_PUBLIC_LOCATION_LOCALE_CODE\",\n                \"value\": \"{{location_locale_code}}\"\n            }\n        ],\n      \"isProductionBranch\": true\n    }\n  ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{environment}}.yext.com/v2/accounts/{{sub_account_id}}/config/resources/pages/yextsite-config?v=20230414",
+							"protocol": "https",
+							"host": [
+								"{{environment}}",
+								"yext",
+								"com"
+							],
+							"path": [
+								"v2",
+								"accounts",
+								"{{sub_account_id}}",
+								"config",
+								"resources",
+								"pages",
+								"yextsite-config"
+							],
+							"query": [
+								{
+									"key": "v",
+									"value": "20230414"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Domain",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "",
+								"value": "",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"$id\": \"${{domain}}\",\n    \"$schema\": \"https://schema.yext.com/config/pages/domain/v1\",\n    \"domainName\": \"${{domain}}\",\n    \"domainAccess\": true,\n    \"siteVersion\": \"pages\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{environment}}.yext.com/v2/accounts/{{sub_account_id}}/config/resources/pages/domain?v=20230414",
+							"protocol": "https",
+							"host": [
+								"{{environment}}",
+								"yext",
+								"com"
+							],
+							"path": [
+								"v2",
+								"accounts",
+								"{{sub_account_id}}",
+								"config",
+								"resources",
+								"pages",
+								"domain"
+							],
+							"query": [
+								{
+									"key": "v",
+									"value": "20230414"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Field",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "",
+								"value": "",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{environment}}.yext.com/v2/accounts/{{sub_account_id}}/config/resources/pages/repository?v=20230101",
+							"protocol": "https",
+							"host": [
+								"{{environment}}",
+								"yext",
+								"com"
+							],
+							"path": [
+								"v2",
+								"accounts",
+								"{{sub_account_id}}",
+								"config",
+								"resources",
+								"pages",
+								"repository"
+							],
+							"query": [
+								{
+									"key": "v",
+									"value": "20230101"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Site",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "",
+								"value": "",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"$id\": \"{{site_id}}\",\n  \"$schema\": \"https://schema.yext.com/config/pages/yextsite-config/v1\",\n  \"siteName\": \"{{site_name}}\",\n  \"repoConfig\": \"{{repo_id}}\",\n  \"siteSettings\": {\n    \"autoDeploy\": true,\n    \"autoStage\": true,\n    \"autoPublish\": false,\n    \"pullRequestsEnabled\": false,\n    \"stagingCredentials\": {\n      \"password\": \"\",\n      \"username\": \"\"\n    }\n  },\n  \"branches\": [\n    {\n      \"name\": \"{{branch}}\",\n      \"envVars\": [\n            {\n                \"key\": \"YEXT_PUBLIC_LOCATION_ENTITY_ID\",\n                \"value\": \"{{location_entity_id}}\"\n            },\n            {\n                \"key\": \"YEXT_PUBLIC_LOCATION_LOCALE_CODE\",\n                \"value\": \"{{location_locale_code}}\"\n            }\n        ],\n      \"isProductionBranch\": true\n    }\n  ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{environment}}.yext.com/v2/accounts/{{sub_account_id}}/config/resources/pages/yextsite-config?v=20230414",
+							"protocol": "https",
+							"host": [
+								"{{environment}}",
+								"yext",
+								"com"
+							],
+							"path": [
+								"v2",
+								"accounts",
+								"{{sub_account_id}}",
+								"config",
+								"resources",
+								"pages",
+								"yextsite-config"
+							],
+							"query": [
+								{
+									"key": "v",
+									"value": "20230414"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Site",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.environment.get(\"variable_key\");",
+									"pm.variables.get(\"variable_key\");"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.collectionVariables.set(\"variable_key\", \"variable_value\");"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "https://api.yext.com/v2/accounts/{{sub_account_id}}/config/resources/pages/yextsite-config/{{site_id}}?v=20220101",
+							"protocol": "https",
+							"host": [
+								"api",
+								"yext",
+								"com"
+							],
+							"path": [
+								"v2",
+								"accounts",
+								"{{sub_account_id}}",
+								"config",
+								"resources",
+								"pages",
+								"yextsite-config",
+								"{{site_id}}"
+							],
+							"query": [
+								{
+									"key": "v",
+									"value": "20220101"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Domain",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.environment.get(\"variable_key\");",
+									"pm.variables.get(\"variable_key\");"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.collectionVariables.set(\"variable_key\", \"variable_value\");"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "https://api.yext.com/v2/accounts/{{sub_account_id}}/config/resources/pages/domain/{{resource_id}}?v=20220101",
+							"protocol": "https",
+							"host": [
+								"api",
+								"yext",
+								"com"
+							],
+							"path": [
+								"v2",
+								"accounts",
+								"{{sub_account_id}}",
+								"config",
+								"resources",
+								"pages",
+								"domain",
+								"{{resource_id}}"
+							],
+							"query": [
+								{
+									"key": "v",
+									"value": "20220101"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "[https://hitchhikers.yext.com/docs/managementapis/configuration/]()"
+		}
+	],
+	"auth": {
+		"type": "apikey",
+		"apikey": [
+			{
+				"key": "in",
+				"value": "query",
+				"type": "string"
+			},
+			{
+				"key": "key",
+				"value": "api_key",
+				"type": "string"
+			},
+			{
+				"key": "value",
+				"value": "{{api_key}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "resources_apply_id",
+			"value": ""
+		},
+		{
+			"key": "variable_key",
+			"value": ""
+		}
+	]
+}
