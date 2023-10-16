@@ -127,6 +127,86 @@
 					"response": []
 				},
 				{
+					"name": "Existing Sub Account",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"subAccountId\": \"{{sub_account_id}}\",\n    \"skuAdditions\": [\n        {\n            \"sku\": \"REPLACE_ME\",\n            \"quantity\": 1\n        }\n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{environment}}.yext.com/v2/accounts/{{account_id}}/existingsubaccountaddrequests?v={{v}}",
+							"protocol": "https",
+							"host": [
+								"{{environment}}",
+								"yext",
+								"com"
+							],
+							"path": [
+								"v2",
+								"accounts",
+								"{{account_id}}",
+								"existingsubaccountaddrequests"
+							],
+							"query": [
+								{
+									"key": "v",
+									"value": "{{v}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Sub Account Status",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"subAccountId\": \"{{sub_account_id}}\",\n    \"skuAdditions\": [\n        {\n            \"sku\": \"GLOBAL-00000157\",\n            \"quantity\": 1\n        }\n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{environment}}.yext.com/v2/accounts/{{account_id}}/subaccountaddrequests/{{add_request_id}}?v={{v}}",
+							"protocol": "https",
+							"host": [
+								"{{environment}}",
+								"yext",
+								"com"
+							],
+							"path": [
+								"v2",
+								"accounts",
+								"{{account_id}}",
+								"subaccountaddrequests",
+								"{{add_request_id}}"
+							],
+							"query": [
+								{
+									"key": "v",
+									"value": "{{v}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "List Sub Accounts",
 					"request": {
 						"method": "GET",
@@ -476,6 +556,57 @@
 		{
 			"name": "Configuration API",
 			"item": [
+				{
+					"name": "Get Site",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "",
+								"value": "",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{environment}}.yext.com/v2/accounts/{{sub_account_id}}/config/resources/pages/yextsite-config/{{site_id}}?v=20230414",
+							"protocol": "https",
+							"host": [
+								"{{environment}}",
+								"yext",
+								"com"
+							],
+							"path": [
+								"v2",
+								"accounts",
+								"{{sub_account_id}}",
+								"config",
+								"resources",
+								"pages",
+								"yextsite-config",
+								"{{site_id}}"
+							],
+							"query": [
+								{
+									"key": "v",
+									"value": "20230414"
+								}
+							]
+						}
+					},
+					"response": []
+				},
 				{
 					"name": "Create Repo",
 					"request": {
